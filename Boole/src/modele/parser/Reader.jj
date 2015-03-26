@@ -12,7 +12,8 @@ public class Reader{  public static void main(String args []) throws ParseExce
 | < ALPHA1 : ["A" - "Z"]>
 | < ALPHA2 : ["a" - "z"]>
 }
-/*circuit Test<1|Non(1,1)->#1(2#1)>
+/*Exemple:
+ circuit Test<1|Non(1,1){bas}->#1(2#1)>
 <2|Non(1,1)->#1(2#1,3#3),#2(1#1)>
 */
 TOKEN:{
@@ -22,7 +23,7 @@ TOKEN:{
 
 void composant():{}
 {
-  "<"< NUM >"|"< NOM >"("< NUM >","< NUM >")"(< STATE >)?"->"(sortie())*}
+  "<"< NUM >"|"< NOM >"("< NUM >","< NUM >")"("{"< STATE >"}")?"->"(sortie())*}
 
 void sortie():{}
 {">"
@@ -42,4 +43,4 @@ void lien():{}
 void lien2():{}
 {")"
 | ","< NUM >"#"< NUM >lien2()
-}/*void term() :{}{  unary()  (    (      < MULTIPLY >    | < DIVIDE >    )    unary()  )*}void unary() :{}{  < MINUS > element()| element()}void element() :{}{  < CONSTANT >| "(" sum() ")"}*/
+}

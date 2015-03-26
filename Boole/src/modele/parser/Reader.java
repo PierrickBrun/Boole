@@ -87,19 +87,21 @@ public class Reader implements ReaderConstants {
     jj_consume_token(NUM);
     jj_consume_token(17);
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-    case STATE:
+    case 18:
+      jj_consume_token(18);
       jj_consume_token(STATE);
+      jj_consume_token(19);
       break;
     default:
       jj_la1[2] = jj_gen;
       ;
     }
-    jj_consume_token(18);
+    jj_consume_token(20);
     label_2:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case 19:
-      case 20:
+      case 21:
+      case 22:
         ;
         break;
       default:
@@ -112,11 +114,11 @@ public class Reader implements ReaderConstants {
 
   static final public void sortie() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-    case 19:
-      jj_consume_token(19);
+    case 21:
+      jj_consume_token(21);
       break;
-    case 20:
-      jj_consume_token(20);
+    case 22:
+      jj_consume_token(22);
       jj_consume_token(NUM);
       jj_consume_token(15);
       lien();
@@ -131,11 +133,11 @@ public class Reader implements ReaderConstants {
 
   static final public void sortie2() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-    case 19:
-      jj_consume_token(19);
-      break;
     case 21:
       jj_consume_token(21);
+      break;
+    case 23:
+      jj_consume_token(23);
       jj_consume_token(NUM);
       jj_consume_token(15);
       lien();
@@ -150,7 +152,7 @@ public class Reader implements ReaderConstants {
 
   static final public void lien() throws ParseException {
     jj_consume_token(NUM);
-    jj_consume_token(20);
+    jj_consume_token(22);
     jj_consume_token(NUM);
     lien2();
   }
@@ -163,7 +165,7 @@ public class Reader implements ReaderConstants {
     case 16:
       jj_consume_token(16);
       jj_consume_token(NUM);
-      jj_consume_token(20);
+      jj_consume_token(22);
       jj_consume_token(NUM);
       lien2();
       break;
@@ -190,7 +192,7 @@ public class Reader implements ReaderConstants {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x1400,0x2000,0x800,0x180000,0x180000,0x280000,0x30000,};
+      jj_la1_0 = new int[] {0x1400,0x2000,0x40000,0x600000,0x600000,0xa00000,0x30000,};
    }
 
   /** Constructor with InputStream. */
@@ -328,7 +330,7 @@ public class Reader implements ReaderConstants {
   /** Generate ParseException. */
   static public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[22];
+    boolean[] la1tokens = new boolean[24];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -342,7 +344,7 @@ public class Reader implements ReaderConstants {
         }
       }
     }
-    for (int i = 0; i < 22; i++) {
+    for (int i = 0; i < 24; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;
