@@ -1,35 +1,35 @@
 package modele.port;
 
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
+import exception.EndException;
+import modele.Composant;
 import modele.Port;
 
 public class Sortie extends Port {
 
-	protected List<Entree> recepteurs;
+	protected Set<Entree> recepteurs;
 
-	public List<Entree> getRecepteurs() {
+	public Set<Entree> getRecepteurs() {
 		return recepteurs;
 	}
 
-	public void setRecepteurs(List<Entree> recepteurs) {
+	public void setRecepteurs(Set<Entree> recepteurs) {
 		this.recepteurs = recepteurs;
 	}
 
-	public Sortie(Sortie s) {
-		this.setEtat(s.getEtat());
-		this.setRecepteurs(s.getRecepteurs());
+	public Sortie(int num, Composant c) {
+		super(num, c);
+		this.recepteurs = new LinkedHashSet<Entree>();
 	}
 
-	public Sortie() {
-	}
-
-	public void setEtat(boolean e) {
+	public void setEtat(boolean e) throws EndException {
 		this.etat = e;
 		this.propagation();
 	}
 
-	public void propagation() {
-		recepteurs.forEach((Entree) -> setEtat(this.getEtat()));
+	public void propagation() throws EndException {
+		throw new EndException(this);
 	}
 }

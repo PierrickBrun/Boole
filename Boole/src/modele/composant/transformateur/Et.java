@@ -7,9 +7,9 @@ import modele.port.Sortie;
 public final class Et extends Transformateur {
 
 	public Et() {
-		Entree e0 = new Entree();
-		Entree e1 = new Entree();
-		Sortie s0 = new Sortie();
+		this.InList.add(new Entree(0, this));
+		this.InList.add(new Entree(1, this));
+		this.OutList.add(new Sortie(0, this));
 	}
 
 	@Override

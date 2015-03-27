@@ -4,3 +4,5 @@
 /Token.java
 /TokenMgrError.java
 /MaNouvGrammaireConstants.java
+/Reader.java
+/ReaderTokenManager.java

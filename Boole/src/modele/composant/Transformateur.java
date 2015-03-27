@@ -1,8 +1,11 @@
 package modele.composant;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 
+import exception.EndException;
 import modele.port.Entree;
+import modele.port.Sortie;
 
 public abstract class Transformateur extends Generateur implements _Recepteur {
 
@@ -12,16 +15,17 @@ public abstract class Transformateur extends Generateur implements _Recepteur {
 		return InList;
 	}
 
-	public void setInList(Set<Entree> inList) {
-		InList = inList;
+	public Transformateur(){
+		super();
+		this.InList = new LinkedHashSet<Entree>();
 	}
 
 	@Override
-	public void traitement() {
+	public void traitement() throws EndException {
 		boolean result = this.calcul();
-		this.getOutList().forEach(Sortie -> Sortie.setEtat(result));
+		for (Sortie s : this.getOutList())
+			s.setEtat(result);
 	}
 
-	protected abstract boolean calcul();
 
 }

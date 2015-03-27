@@ -1,7 +1,9 @@
 package modele.composant;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 
+import exception.EndException;
 import modele.Composant;
 import modele.port.Sortie;
 
@@ -10,19 +12,20 @@ public abstract class Generateur extends Composant {
 	protected Set<Sortie> OutList;
 
 	@Override
-	public void traitement() {
+	public void traitement() throws EndException {
 		boolean result = this.calcul();
-		this.getOutList().forEach(Sortie -> Sortie.setEtat(result));
+		for (Sortie s : this.getOutList())
+			s.setEtat(result);
 	}
 
 	protected abstract boolean calcul();
 
-	public Set<Sortie> getOutList() {
-		return OutList;
+	public Generateur() {
+		this.OutList = new LinkedHashSet<Sortie>();
 	}
 
-	public void setOutList(Set<Sortie> outList) {
-		OutList = outList;
+	public Set<Sortie> getOutList() {
+		return OutList;
 	}
 
 }

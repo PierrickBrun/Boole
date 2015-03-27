@@ -1,7 +1,13 @@
 package modele.composant;
 
-import modele._Composant;
+import java.util.List;
+import java.util.Set;
 
-public interface _Recepteur extends _Composant{
+import modele._Composant;
+import modele.port.Entree;
+
+public interface _Recepteur extends _Composant {
+
+	public Set<Entree> getInList();
 
 }

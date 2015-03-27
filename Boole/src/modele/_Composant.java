@@ -1,9 +1,12 @@
 package modele;
 
+import exception.EndException;
+import exception.StateException;
+
 public interface _Composant {
 
-	public void traitement();
+	public void traitement() throws EndException, StateException;
 
-	//public void onEventFinish();
+	// public void onEventFinish();
 
 }
