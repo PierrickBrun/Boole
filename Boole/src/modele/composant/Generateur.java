@@ -7,7 +7,7 @@ import exception.EndException;
 import modele.Composant;
 import modele.port.Sortie;
 
-public abstract class Generateur extends Composant {
+public abstract class Generateur extends Composant implements _Generateur {
 
 	protected Set<Sortie> OutList;
 

@@ -9,7 +9,7 @@ import modele.port.Entree;
 
 public class Ferme extends Circuit {
 
-	public Ferme(Composant composant) {
+	public Ferme(Composant... composant) {
 		super(composant);
 	}
 
@@ -25,7 +25,9 @@ public class Ferme extends Circuit {
 	}
 
 	/**
-	 * traite récursivement chaque Composant du circuit
+	 * 
+	 * TODO : à refaire itérativement ( while qui attend d'avoir les
+	 * StartException ) traite récursivement chaque Composant du circuit
 	 * 
 	 * @param c
 	 * @throws StateException

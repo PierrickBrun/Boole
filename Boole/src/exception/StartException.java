@@ -8,15 +8,11 @@ public class StartException extends Exception {
 	private Entree entree;
 
 	public StartException(Entree e) {
-		this.setEntree(e);
+		this.entree = e;
 	}
 
 	public Entree getEntree() {
 		return entree;
-	}
-
-	public void setEntree(Entree entree) {
-		this.entree = entree;
 	}
 
 }

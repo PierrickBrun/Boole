@@ -1,6 +1,5 @@
 package modele.composant;
 
-import java.util.List;
 import java.util.Set;
 
 import modele._Composant;
