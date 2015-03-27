@@ -11,6 +11,10 @@ public abstract class Generateur extends Composant implements _Generateur {
 
 	protected Set<Sortie> OutList;
 
+	public void tryTraitement() throws EndException {
+		traitement();
+	}
+
 	@Override
 	public void traitement() throws EndException {
 		boolean result = this.calcul();

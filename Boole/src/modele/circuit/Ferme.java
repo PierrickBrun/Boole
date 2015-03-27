@@ -5,6 +5,7 @@ import exception.StartException;
 import exception.StateException;
 import modele.Circuit;
 import modele.Composant;
+import modele.composant._Recepteur;
 import modele.port.Entree;
 
 public class Ferme extends Circuit {
@@ -34,12 +35,14 @@ public class Ferme extends Circuit {
 	 */
 	private void traitement(Composant c) throws StateException {
 		try {
-			c.traitement();
+			c.tryTraitement();
 		} catch (EndException ee) {
 			for (Entree entree : ee.getSortie().getRecepteurs()) {
 				try {
 					entree.setEtat(ee.getSortie().getEtat());
 				} catch (StartException se) {
+					((_Recepteur) se.getEntree().getComposant()).modified(se
+							.getEntree());
 					traitement(se.getEntree().getComposant());
 				}
 			}

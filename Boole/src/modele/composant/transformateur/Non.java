@@ -13,7 +13,7 @@ public final class Non extends Transformateur {
 	}
 
 	public Non() {
-		this.InList.add(new Entree(0, this));
+		this.InList.put(new Entree(0, this), false);
 		this.OutList.add(new Sortie(0, this));
 	}
 

@@ -1,6 +1,7 @@
 package modele;
 
 import java.util.HashSet;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import modele.composant._Generateur;
@@ -32,9 +33,10 @@ public abstract class Circuit implements _Circuit {
 			int indexSortie, int indexEntree) {
 		for (Sortie s : ((_Generateur) precedent).getOutList()) {
 			if (s.getNum() == indexSortie) {
-				for (Entree e : ((_Recepteur) ajout).getInList()) {
-					if (e.getNum() == indexEntree) {
-						s.getRecepteurs().add(e);
+				for (Entry<Entree, Boolean> e : ((_Recepteur) ajout)
+						.getInList().entrySet()) {
+					if (e.getKey().getNum() == indexEntree) {
+						s.getRecepteurs().add(e.getKey());
 					}
 				}
 			}

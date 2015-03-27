@@ -7,11 +7,11 @@ import modele.port.Entree;
 public final class Led extends Recepteur {
 
 	public Led() {
-		this.InList.add(new Entree(0, this));
+		this.InList.put(new Entree(0, this), false);
 	}
 
 	public void traitement() throws StateException {
-		if (this.InList.iterator().next().getEtat() == true) {
+		if (this.InList.keySet().iterator().next().getEtat() == true) {
 			throw new StateException("La led est allumée");
 		} else {
 			throw new StateException("La led est éteinte");

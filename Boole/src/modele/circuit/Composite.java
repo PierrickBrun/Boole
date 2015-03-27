@@ -1,5 +1,7 @@
 package modele.circuit;
 
+import exception.EndException;
+import exception.StateException;
 import modele.Composant;
 import modele._Composant;
 
@@ -18,4 +20,11 @@ public class Composite extends Ouvert implements _Composant {
 		 * (Composant)c2;
 		 */
 	}
+
+	@Override
+	public void tryTraitement() throws EndException, StateException {
+		// TODO Auto-generated method stub
+
+	}
+
 }

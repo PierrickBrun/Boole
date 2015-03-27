@@ -7,6 +7,6 @@ public interface _Composant {
 
 	public void traitement() throws EndException, StateException;
 
-	// public void onEventFinish();
+	public void tryTraitement() throws EndException, StateException;
 
 }
