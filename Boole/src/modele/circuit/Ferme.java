@@ -27,8 +27,7 @@ public class Ferme extends Circuit {
 
 	/**
 	 * 
-	 * TODO : à refaire itérativement ( while qui attend d'avoir les
-	 * StartException ) traite récursivement chaque Composant du circuit
+	 * traite récursivement chaque Composant du circuit
 	 * 
 	 * @param c
 	 * @throws StateException
