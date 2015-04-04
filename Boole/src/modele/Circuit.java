@@ -1,9 +1,11 @@
 package modele;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map.Entry;
-import java.util.Set;
 
+import exception.EndException;
+import exception.StartException;
+import exception.StateException;
 import modele.composant._Generateur;
 import modele.composant._Recepteur;
 import modele.port.Entree;
@@ -11,14 +13,7 @@ import modele.port.Sortie;
 
 public abstract class Circuit implements _Circuit {
 
-	// un des deux à supprimer
-	protected Set<Composant> premiers = new HashSet<Composant>();
-
-	public Circuit(Composant... composants) {
-		for (Composant composant : composants) {
-			this.premiers.add(composant);
-		}
-	}
+	protected LinkedHashSet<Composant> premiers = new LinkedHashSet<Composant>();
 
 	/**
 	 * Ajoute un composant à la suite d'un autre en liant une entree à une
@@ -38,6 +33,40 @@ public abstract class Circuit implements _Circuit {
 					if (e.getKey().getNum() == indexEntree) {
 						s.getRecepteurs().add(e.getKey());
 					}
+				}
+			}
+		}
+	}
+
+	@Override
+	public void traitement() {
+		for (Composant c : this.premiers) {
+			try {
+				traitement(c);
+			} catch (StateException e) {
+				System.out.println(e);
+			}
+		}
+	}
+
+	/**
+	 * 
+	 * traite récursivement chaque Composant du circuit
+	 * 
+	 * @param c
+	 * @throws StateException
+	 */
+	protected void traitement(Composant c) throws StateException {
+		try {
+			c.tryTraitement();
+		} catch (EndException ee) {
+			for (Entree entree : ee.getSortie().getRecepteurs()) {
+				try {
+					entree.setEtat(ee.getSortie().getEtat());
+				} catch (StartException se) {
+					((_Recepteur) se.getEntree().getComposant()).modified(se
+							.getEntree());
+					traitement(se.getEntree().getComposant());
 				}
 			}
 		}
