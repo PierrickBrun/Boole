@@ -2,12 +2,27 @@
  * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
  */options{  static = true;}PARSER_BEGIN(Reader)package modele.parser;
 
+import modele.circuit.Ouvert;
+import modele.*;
+import modele.composant.*;
+
 public class Reader{  public static void main(String args []) throws ParseException  {    Reader parser = new Reader(System.in);
-    boolean yes = true;    while (yes)    {      System.out.println("Reading from standard input...");      System.out.print("Enter an expression like \"1+(2+3)*4;\" :");      try      {        switch (Reader.one_line())        {          case 0 :           System.out.println("OK.");          break;          case 1 :           System.out.println("Goodbye.");
+    boolean yes = true;    while (yes)    {      System.out.println("Reading from standard input...");      System.out.print("Enter an expression like \"1+(2+3)*4;\" :");      try      {
+       
+       /*_Circuit cir;
+       List<_Composant> lComposite= new LinkedList<_Composant>();*/        switch (Reader.one_line())        {          case 0 :           System.out.println("OK.");
+          break;          case 1 :           System.out.println("Goodbye.");
           yes = false;          break;          default :           break;        }      }      catch (Exception e)      {        System.out.println("NOK.");        System.out.println(e.getMessage());        Reader.ReInit(System.in);      }      catch (Error e)      {        System.out.println("Oops.");        System.out.println(e.getMessage());        break;      }    }  }}PARSER_END(Reader)SKIP :{  " "| "\r"| "\t"| "\n"}TOKEN:
 {< NUM : (< DIGIT >)+>
 | < DIGIT : ["0"-"9"]>
-}TOKEN :{
+}
+
+TOKEN:
+{
+  < ENTREE : "E"< NUM >>
+| < SORTIE: "S"< NUM >>
+}
+TOKEN :{
     < NOM : (< DIGIT >|<ALPHA1>){1}(< DIGIT >|< ALPHA2 >)+ >
 | < ALPHA1 : ["A" - "Z"]>
 | < ALPHA2 : ["a" - "z"]>
@@ -17,13 +32,67 @@ public class Reader{  public static void main(String args []) throws ParseExce
 <2|Non(1,1)->#1(2#1,3#3),#2(1#1)>
 */
 TOKEN:{
-  < CIRCUIT : "circuit"|"CIRCUIT">| < STATE : "bas"|"haut"|"BAS"|"HAUT">
+
+< CIRCUIT : "circuit"|"CIRCUIT">
+| < STATE : "bas"|"haut"|"BAS"|"HAUT">
 }
-int one_line() :{}{  < CIRCUIT >circuit()";;"  {    return 0;  }| ";;"  {    return 1;  }}void circuit() :{}{  < NOM >(composant())+}
+
+TOKEN:
+{
+  < TEST : "YOLO">}
+
+TOKEN:
+{
+    < COMPOSITE : "composite"|"COMPOSITE">}
+
+
+
+
+
+/*Lit un fichier de circuit de la manière suivante :
+  Lit O..* Composites
+  Lit un circuit.
+  Renvoie un circuit*/int one_line() :{}{
+ (composite())* < CIRCUIT >circuit()";;"{return 0;}| ";;"{return 1;}
+}
+void composite() : {}
+{
+  < COMPOSITE >composite2(){}}
+
+void composite2():{}
+{
+  < NOM >"("< NUM >","<  NUM >")"(composant())+(specif()){}}
+
+void specif():{}{
+  "[" (composEntree())+":"(composSortie())+}
+
+void composEntree():{}
+{
+ "#"< ENTREE >"("< NUM >"#"< NUM >")"composEntree2(){}}
+
+void composEntree2():{}
+{
+  ":"
+| ";""#"< ENTREE >"("< NUM >"#"< NUM >")"}
+
+void composSortie():{}
+{
+ "#"< SORTIE >"("< NUM >"#"< NUM >")"composSortie2(){}}
+
+void composSortie2():{}
+{
+  "]"
+| ";#"< SORTIE >"("< NUM >"#"< NUM >")"
+}
+
+
+/*Lit le nom, le passe à la lecture des composants*/void circuit():{}{  < NOM >(composant())+{}}
 
 void composant():{}
 {
-  "<"< NUM >"|"< NOM >"("< NUM >","< NUM >")"("{"< STATE >"}")?"->"(sortie())*}
+  "<"< NUM >"|"< NOM >("("< NUM >","< NUM >")")?("{"< STATE >"}")?("->")?(sortie())*
+}
+
 
 void sortie():{}
 {">"

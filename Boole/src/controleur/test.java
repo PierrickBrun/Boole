@@ -13,10 +13,10 @@ public class test {
 		Vcc vcc = new Vcc();
 		Ou ou = new Ou();
 		Led led = new Led();
-		Ferme c = new Ferme(vcc, gnd);
-		c.connexion(ou, vcc, 0, 0);
-		c.connexion(ou, gnd, 0, 1);
-		c.connexion(led, ou, 0, 0);
+		Ferme c = new Ferme("Test",vcc, gnd);
+		c.connexion(vcc, ou, 0, 0);
+		c.connexion(gnd,ou, 0, 1);
+		c.connexion(ou,led, 0, 0);
 		c.traitement();
 	}
 

@@ -10,8 +10,8 @@ import modele.port.Entree;
 
 public class Ferme extends Circuit {
 
-	public Ferme(Composant... composant) {
-		super(composant);
+	public Ferme(String nom, Composant... composant) {
+		super(nom, composant);
 	}
 
 	@Override
@@ -27,7 +27,7 @@ public class Ferme extends Circuit {
 
 	/**
 	 * 
-	 * traite récursivement chaque Composant du circuit
+	 * traite rï¿½cursivement chaque Composant du circuit
 	 * 
 	 * @param c
 	 * @throws StateException

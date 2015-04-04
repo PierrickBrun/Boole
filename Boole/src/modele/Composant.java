@@ -8,6 +8,7 @@ public abstract class Composant implements _Composant {
 		return nom;
 	}
 
+
 	public void setNom(String nom) {
 		this.nom = nom;
 	}

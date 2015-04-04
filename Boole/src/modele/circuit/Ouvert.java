@@ -8,8 +8,10 @@ import modele.Port;
 
 public class Ouvert extends Circuit {
 
-	public Ouvert(Composant composant) {
-		super(composant);
+	
+	
+	public Ouvert(String nom, Composant composant) {
+		super(nom, composant);
 	}
 
 	protected Set<Port> Entrees;

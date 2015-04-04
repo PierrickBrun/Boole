@@ -7,8 +7,8 @@ import modele._Composant;
 
 public class Composite extends Ouvert implements _Composant {
 
-	public Composite(Composant composant) {
-		super(composant);
+	public Composite(String nom,Composant composant) {
+		super(nom, composant);
 	}
 
 	@Override
