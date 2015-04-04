@@ -14,9 +14,9 @@ public class test {
 		Ou ou = new Ou();
 		Led led = new Led();
 		Ferme c = new Ferme(vcc, gnd);
-		c.connexion(ou, vcc, 0, 0);
-		c.connexion(ou, gnd, 0, 1);
-		c.connexion(led, ou, 0, 0);
+		c.connexion(vcc, ou, 0, 0);
+		c.connexion(gnd, ou, 0, 1);
+		c.connexion(ou, led, 0, 0);
 		c.traitement();
 	}
 

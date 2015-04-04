@@ -1,5 +1,5 @@
 CLEAR_CONSOLE=true
-JAVACC_OPTIONS=-OUTPUT_DIRECTORY\=/Users/triton/git/Boole/Boole/src/modele/parser
+JAVACC_OPTIONS=-OUTPUT_DIRECTORY\=/Users/Pierrick_2/git/Boole/src/modele/parser
 JJDOC_OPTIONS=
 JJTREE_OPTIONS=
 JJ_NATURE=true

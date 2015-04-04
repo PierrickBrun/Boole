@@ -15,20 +15,23 @@ public abstract class Circuit implements _Circuit {
 
 	protected LinkedHashSet<Composant> premiers = new LinkedHashSet<Composant>();
 
+	protected String nom = "000";
+
+	
 	/**
-	 * Ajoute un composant à la suite d'un autre en liant une entree à une
-	 * sortie
+	 * Connecte deux composants.
+	 * La sortie IndexSortie du composant Emet est connectee l 'entre IndexEntree du composant Recoit
 	 * 
 	 * @param ajout
 	 * @param precedent
 	 * @param indexSortie
 	 * @param indexEntree
 	 */
-	public void connexion(Composant ajout, Composant precedent,
+	public void connexion(Composant Emet, Composant Recoit,
 			int indexSortie, int indexEntree) {
-		for (Sortie s : ((_Generateur) precedent).getOutList()) {
+		for (Sortie s : ((_Generateur) Emet).getOutList()) {
 			if (s.getNum() == indexSortie) {
-				for (Entry<Entree, Boolean> e : ((_Recepteur) ajout)
+				for (Entry<Entree, Boolean> e : ((_Recepteur)Recoit)
 						.getInList().entrySet()) {
 					if (e.getKey().getNum() == indexEntree) {
 						s.getRecepteurs().add(e.getKey());
