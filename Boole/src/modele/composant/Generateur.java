@@ -29,7 +29,7 @@ public abstract class Generateur extends Composant implements _Generateur {
 	}
 
 	public Set<Sortie> getOutList() {
-		return OutList;
+		return new LinkedHashSet<Sortie>(OutList);
 	}
 
 }

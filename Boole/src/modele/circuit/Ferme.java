@@ -13,7 +13,7 @@ public class Ferme extends Circuit {
 	public Ferme(String nom, Composant... composant) {
 		super(nom, composant);
 	}
-
+	
 	@Override
 	public void traitement() {
 		for (Composant c : this.premiers) {
@@ -21,6 +21,7 @@ public class Ferme extends Circuit {
 				traitement(c);
 			} catch (StateException e) {
 				System.out.println(e);
+				
 			}
 		}
 	}

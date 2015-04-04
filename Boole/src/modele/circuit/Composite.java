@@ -19,6 +19,11 @@ public class Composite extends Ouvert implements _Composant {
 		 * Composite c = new Composite(); _Composant c2 = c; Composant c3 =
 		 * (Composant)c2;
 		 */
+		
+		/*
+		 * Idealement : Renvoie la valeur de la sortie du dernier composant.
+		 * Du coup y pas mal de trucs qu'on été mal pensés -.\
+		 * */
 	}
 
 	@Override

@@ -14,6 +14,8 @@ public abstract class Circuit implements _Circuit {
 	// un des deux � supprimer
 	protected Set<Composant> premiers = new HashSet<Composant>();
     protected String nom;
+    protected boolean NomEntre = false;
+    
 	public Circuit(String nom, Composant... composants) {
 		for (Composant composant : composants) {
 			this.premiers.add(composant);
@@ -21,7 +23,24 @@ public abstract class Circuit implements _Circuit {
 		this.nom = nom;
 	}
 	
-
+	public Circuit(String nom){
+		this.nom = nom;
+	}
+	
+	public Circuit(){
+		
+	}
+	
+	public void setNom(String nom){
+		if(NomEntre == false){
+		  this.nom = nom;
+		  NomEntre = true;
+		}
+	}
+	
+   public void ajoutComposant(Composant c){
+	   this.premiers.add(c);
+   }
 	
 	
 
@@ -29,8 +48,8 @@ public abstract class Circuit implements _Circuit {
 	 * Connecte deux composants.
 	 * La sortie IndexSortie du composant Emet est connectee l 'entre IndexEntree du composant Recoit
 	 * 
-	 * @param ajout
-	 * @param precedent
+	 * @param Emet
+	 * @param Recoit
 	 * @param indexSortie
 	 * @param indexEntree
 	 */

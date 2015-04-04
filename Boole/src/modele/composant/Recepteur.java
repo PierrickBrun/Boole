@@ -36,7 +36,7 @@ public abstract class Recepteur extends Composant implements _Recepteur {
 	}
 
 	public Map<Entree, Boolean> getInList() {
-		return this.InList;
+		return new LinkedHashMap<Entree,Boolean>(this.InList);
 	}
 
 }
