@@ -1,49 +1,4 @@
-<<<<<<< HEAD
-package modele.circuit;
 
-import java.util.LinkedHashSet;
-import java.util.Map.Entry;
-
-import exception.EndException;
-import exception.StateException;
-import modele.Composant;
-import modele._Composant;
-import modele.port.Entree;
-
-public class Composite extends Ouvert implements _Composant {
-
-	public Composite(LinkedHashSet<Composant> premiers,
-			LinkedHashSet<Composant> derniers) {
-		super(premiers, derniers);
-	}
-
-	@Override
-	public void traitement() {
-		// TODO Auto-generated method stub
-
-		/*
-		 * Composite c = new Composite(); _Composant c2 = c; Composant c3 =
-		 * (Composant)c2;
-		 */
-		
-		/*
-		 * Idealement : Renvoie la valeur de la sortie du dernier composant.
-		 * Du coup y pas mal de trucs qu'on Ã©tÃ© mal pensÃ©s -.\
-		 * */
-	}
-
-	@Override
-	public void tryTraitement() throws EndException, StateException {
-		for (Entry<Entree, Boolean> entry : this.inList.entrySet()) {
-			if (entry.getValue().booleanValue() == false) {
-				return;
-			}
-		}
-		traitement();
-	}
-
-}
-=======
 package modele.circuit;
 
 import java.util.LinkedHashMap;
@@ -65,7 +20,7 @@ public class Composite extends Ouvert implements _Composant {
 
 	/**
 	 * 
-	 * il faut préciser pour chaque composant l'index du port à utiliser pour le lier
+	 * il faut prï¿½ciser pour chaque composant l'index du port ï¿½ utiliser pour le lier
 	 * 
 	 * @param premiers LinkedHashMap<Entry<Composant, Integer>, Entry<Composant, Integer>>
 	 * @param derniers LinkedHashMap<Entry<Composant, Integer>, Entry<Composant, Integer>>
@@ -130,4 +85,3 @@ public class Composite extends Ouvert implements _Composant {
 	}
 
 }
->>>>>>> branch 'master' of https://github.com/pierrickBrun/Boole.git

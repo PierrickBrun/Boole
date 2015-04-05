@@ -15,10 +15,10 @@ public abstract class Circuit implements _Circuit {
 
 	protected LinkedHashSet<Composant> premiers = new LinkedHashSet<Composant>();
 
-<<<<<<< HEAD
+
 	// un des deux ï¿½ supprimer
-	protected Set<Composant> premiers = new HashSet<Composant>();
-    protected String nom;
+	//protected Set<Composant> premiers = new HashSet<Composant>();
+    protected String nom= "000";
     protected boolean NomEntre = false;
     
 	public Circuit(String nom, Composant... composants) {
@@ -28,8 +28,7 @@ public abstract class Circuit implements _Circuit {
 		this.nom = nom;
 	}
 	
-	protected String nom = "000";
-	protected String nom = "000";
+
 	public Circuit(String nom){
 		this.nom = nom;
 	}
@@ -49,12 +48,7 @@ public abstract class Circuit implements _Circuit {
 	   this.premiers.add(c);
    }
 	
-	
-=======
-	protected LinkedHashSet<Composant> premiers = new LinkedHashSet<Composant>();
 
-	protected String nom = "000";
->>>>>>> branch 'master' of https://github.com/pierrickBrun/Boole.git
 
 	/**
 	 * Connecte deux composants. La sortie IndexSortie du composant Emet est
@@ -92,7 +86,7 @@ public abstract class Circuit implements _Circuit {
 
 	/**
 	 * 
-	 * traite récursivement chaque Composant du circuit
+	 * traite rï¿½cursivement chaque Composant du circuit
 	 * 
 	 * @param c
 	 * @throws StateException

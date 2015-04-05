@@ -28,12 +28,9 @@ public abstract class Generateur extends Composant implements _Generateur {
 	}
 
 	public LinkedHashSet<Sortie> getOutList() {
-<<<<<<< HEAD
+
 		return new LinkedHashSet<Sortie>(OutList);
 
-=======
-		return OutList;
->>>>>>> branch 'master' of https://github.com/pierrickBrun/Boole.git
 	}
 
 }
