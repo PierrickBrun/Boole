@@ -17,10 +17,10 @@ public class test {
 		Led led = new Led("005");
 		Composite xor = new Composite("004", ou);
 		xor.connexionHermaphrodite(gnd, ou, 0, 0);
-		xor.connexionHermaphrodite(vcc, ou, 0, 1);
+		xor.connexionHermaphrodite(gnd, ou, 0, 1);
 		xor.connexion(ou, non, 0, 0);
 		xor.connexionHermaphrodite(non, led, 0, 0);
-		Ferme ferme = new Ferme(xor);
+		Ferme ferme = new Ferme(gnd,vcc);
 		ferme.connexion(xor, led, 0, 0);
 		ferme.traitement();
 

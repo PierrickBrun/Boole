@@ -11,6 +11,7 @@ import modele.composant.Recepteur;
 import modele.composant.Generateur;
 import modele.composant._Recepteur;
 import modele.port.Entree;
+import modele.port.Hermaphrodite;
 import modele.port.Sortie;
 
 public abstract class Circuit implements _Circuit {
@@ -100,13 +101,25 @@ public abstract class Circuit implements _Circuit {
 			c.tryTraitement();
 		} catch (EndException ee) {
 			for (Port entree : ee.getSortie().getRecepteurs()) {
-				try {
-					((Entree) entree).setEtat(ee.getSortie().getEtat());
-				} catch (StartException se) {
-					((_Recepteur) se.getEntree().getComposant()).modified(se
-							.getEntree());
-					traitement(se.getEntree().getComposant());
-				}
+				propagation(entree, ee.getSortie().getEtat());
+			}
+		}
+	}
+
+	public void propagation(Port entree, boolean etat) throws StateException {
+		try {
+			if (entree instanceof Entree) {
+				((Entree) entree).setEtat(etat);
+			} else if (entree instanceof Hermaphrodite) {
+				((Hermaphrodite) entree).setEtat(etat);
+			}
+		} catch (StartException se) {
+			((_Recepteur) se.getEntree().getComposant()).modified(se
+					.getEntree());
+			traitement(se.getEntree().getComposant());
+		} catch (EndException ee) {
+			for (Port entree2 : ee.getSortie().getRecepteurs()) {
+				propagation(entree2, ee.getSortie().getEtat());
 			}
 		}
 	}
