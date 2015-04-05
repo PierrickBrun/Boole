@@ -2,6 +2,7 @@ package modele.circuit;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.Set;
 
 import modele.Circuit;
 import modele.Composant;
@@ -14,9 +15,8 @@ public class Ouvert extends Circuit {
 	protected LinkedHashMap<Entree, Boolean> inList = new LinkedHashMap<Entree, Boolean>();
 	protected LinkedHashSet<Sortie> outList = new LinkedHashSet<Sortie>();
 
-	public Ouvert(LinkedHashSet<Composant> premiers,
-			LinkedHashSet<Composant> derniers) {
-		this.premiers = premiers;
+	public Ouvert(Set<Composant> premiers, Set<Composant> derniers) {
+		this.premiers = (LinkedHashSet<Composant>) premiers;
 		for (Composant composant : premiers) {
 			if (composant instanceof Transformateur) {
 				composant = (Transformateur) composant;
@@ -34,6 +34,12 @@ public class Ouvert extends Circuit {
 				}
 			}
 		}
+	}
+
+	public Ouvert(LinkedHashMap<Entree, Boolean> inList,
+			LinkedHashSet<Sortie> outList) {
+		this.inList = inList;
+		this.outList = outList;
 	}
 
 }

@@ -17,21 +17,20 @@ public abstract class Circuit implements _Circuit {
 
 	protected String nom = "000";
 
-	
 	/**
-	 * Connecte deux composants.
-	 * La sortie IndexSortie du composant Emet est connectee l 'entre IndexEntree du composant Recoit
+	 * Connecte deux composants. La sortie IndexSortie du composant Emet est
+	 * connectee l 'entre IndexEntree du composant Recoit
 	 * 
 	 * @param ajout
 	 * @param precedent
 	 * @param indexSortie
 	 * @param indexEntree
 	 */
-	public void connexion(Composant Emet, Composant Recoit,
-			int indexSortie, int indexEntree) {
+	public void connexion(Composant Emet, Composant Recoit, int indexSortie,
+			int indexEntree) {
 		for (Sortie s : ((_Generateur) Emet).getOutList()) {
 			if (s.getNum() == indexSortie) {
-				for (Entry<Entree, Boolean> e : ((_Recepteur)Recoit)
+				for (Entry<Entree, Boolean> e : ((_Recepteur) Recoit)
 						.getInList().entrySet()) {
 					if (e.getKey().getNum() == indexEntree) {
 						s.getRecepteurs().add(e.getKey());
