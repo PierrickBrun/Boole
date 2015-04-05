@@ -11,8 +11,6 @@ import modele.Composant;
 import modele.Port;
 import modele.port.Entree;
 import modele.port.Hermaphrodite;
-import modele._Composant;
-import modele.composant.Recepteur;
 import modele.composant._Generateur;
 import modele.composant._Recepteur;
 import modele.port.Sortie;
@@ -25,7 +23,6 @@ public class Composite extends Composant implements _Ouvert {
 
 	/**
 	 * 
-	 * @param nom
 	 */
 	public Composite(String nom, Composant... composants) {
 		super(nom);

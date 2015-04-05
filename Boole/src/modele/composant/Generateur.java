@@ -19,7 +19,7 @@ public abstract class Generateur extends Composant implements _Generateur {
 	public void traitement() throws EndException {
 		boolean result = this.calcul();
 		for (Port port : this.getOutList())
-			((Sortie)port).setEtat(result);
+			((Sortie) port).setEtat(result);
 	}
 
 	protected abstract boolean calcul();

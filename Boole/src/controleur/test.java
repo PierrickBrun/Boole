@@ -23,5 +23,6 @@ public class test {
 		Ferme ferme = new Ferme(xor);
 		ferme.connexion(xor, led, 0, 0);
 		ferme.traitement();
+
 	}
 }

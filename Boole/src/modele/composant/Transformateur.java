@@ -25,7 +25,7 @@ public abstract class Transformateur extends Generateur implements _Recepteur {
 	public void traitement() throws EndException {
 		boolean result = this.calcul();
 		for (Port sortie : this.getOutList())
-			((Sortie)sortie).setEtat(result);
+			((Sortie) sortie).setEtat(result);
 	}
 
 	public void tryTraitement() throws EndException {
