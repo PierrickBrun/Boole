@@ -6,21 +6,20 @@ import java.util.Set;
 
 import modele.Circuit;
 import modele.Composant;
+import modele.Port;
 import modele.composant.Transformateur;
-import modele.port.Entree;
-import modele.port.Sortie;
 
 public class Ouvert extends Circuit {
 
-	protected LinkedHashMap<Entree, Boolean> inList = new LinkedHashMap<Entree, Boolean>();
-	protected LinkedHashSet<Sortie> outList = new LinkedHashSet<Sortie>();
+	protected LinkedHashMap<Port, Boolean> inList = new LinkedHashMap<Port, Boolean>();
+	protected LinkedHashSet<Port> outList = new LinkedHashSet<Port>();
 
 	public Ouvert(Set<Composant> premiers, Set<Composant> derniers) {
 		this.premiers = (LinkedHashSet<Composant>) premiers;
 		for (Composant composant : premiers) {
 			if (composant instanceof Transformateur) {
 				composant = (Transformateur) composant;
-				for (Entree entree : ((Transformateur) composant).getInList()
+				for (Port entree : ((Transformateur) composant).getInList()
 						.keySet()) {
 					inList.put(entree, new Boolean(null));
 				}
@@ -29,15 +28,15 @@ public class Ouvert extends Circuit {
 		for (Composant composant : derniers) {
 			if (composant instanceof Transformateur) {
 				composant = (Transformateur) composant;
-				for (Sortie sortie : ((Transformateur) composant).getOutList()) {
+				for (Port sortie : ((Transformateur) composant).getOutList()) {
 					outList.add(sortie);
 				}
 			}
 		}
 	}
 
-	public Ouvert(LinkedHashMap<Entree, Boolean> inList,
-			LinkedHashSet<Sortie> outList) {
+	public Ouvert(LinkedHashMap<Port, Boolean> inList,
+			LinkedHashSet<Port> outList) {
 		this.inList = inList;
 		this.outList = outList;
 	}

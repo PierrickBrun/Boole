@@ -6,7 +6,9 @@ import java.util.Map.Entry;
 import exception.EndException;
 import exception.StartException;
 import exception.StateException;
-import modele.composant._Generateur;
+import modele.circuit.Composite;
+import modele.composant.Recepteur;
+import modele.composant.Generateur;
 import modele.composant._Recepteur;
 import modele.port.Entree;
 import modele.port.Sortie;
@@ -26,14 +28,49 @@ public abstract class Circuit implements _Circuit {
 	 * @param indexSortie
 	 * @param indexEntree
 	 */
-	public void connexion(Composant Emet, Composant Recoit, int indexSortie,
+	public void connexion(Composant emet, Composant recoit, int indexSortie,
 			int indexEntree) {
-		for (Sortie s : ((_Generateur) Emet).getOutList()) {
-			if (s.getNum() == indexSortie) {
-				for (Entry<Entree, Boolean> e : ((_Recepteur) Recoit)
-						.getInList().entrySet()) {
-					if (e.getKey().getNum() == indexEntree) {
-						s.getRecepteurs().add(e.getKey());
+		if (emet instanceof Generateur) {
+			for (Port sortie : ((Generateur) emet).getOutList()) {
+				if (sortie.getNum() == indexSortie) {
+					if (recoit instanceof Recepteur) {
+						for (Entry<Port, Boolean> e : ((Recepteur) recoit)
+								.getInList().entrySet()) {
+							if (e.getKey().getNum() == indexEntree) {
+								((Sortie) sortie).getRecepteurs().add(
+										e.getKey());
+							}
+						}
+					} else if (recoit instanceof Composite) {
+						for (Entry<Port, Boolean> e : ((Composite) recoit)
+								.getInList().entrySet()) {
+							if (e.getKey().getNum() == indexEntree) {
+								((Sortie) sortie).getRecepteurs().add(
+										e.getKey());
+							}
+						}
+					}
+				}
+			}
+		} else if (emet instanceof Composite) {
+			for (Port sortie : ((Composite) emet).getOutList()) {
+				if (sortie.getNum() == indexSortie) {
+					if (recoit instanceof Recepteur) {
+						for (Entry<Port, Boolean> e : ((Recepteur) recoit)
+								.getInList().entrySet()) {
+							if (e.getKey().getNum() == indexEntree) {
+								((Sortie) sortie).getRecepteurs().add(
+										e.getKey());
+							}
+						}
+					} else if (recoit instanceof Composite) {
+						for (Entry<Port, Boolean> e : ((Composite) recoit)
+								.getInList().entrySet()) {
+							if (e.getKey().getNum() == indexEntree) {
+								((Sortie) sortie).getRecepteurs().add(
+										e.getKey());
+							}
+						}
 					}
 				}
 			}
@@ -58,13 +95,13 @@ public abstract class Circuit implements _Circuit {
 	 * @param c
 	 * @throws StateException
 	 */
-	protected void traitement(Composant c) throws StateException {
+	public void traitement(Composant c) throws StateException {
 		try {
 			c.tryTraitement();
 		} catch (EndException ee) {
-			for (Entree entree : ee.getSortie().getRecepteurs()) {
+			for (Port entree : ee.getSortie().getRecepteurs()) {
 				try {
-					entree.setEtat(ee.getSortie().getEtat());
+					((Entree) entree).setEtat(ee.getSortie().getEtat());
 				} catch (StartException se) {
 					((_Recepteur) se.getEntree().getComposant()).modified(se
 							.getEntree());

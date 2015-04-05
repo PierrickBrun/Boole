@@ -12,7 +12,8 @@ public final class Non extends Transformateur {
 		return false;
 	}
 
-	public Non() {
+	public Non(String nom) {
+		super(nom);
 		this.InList.put(new Entree(0, this), false);
 		this.OutList.add(new Sortie(0, this));
 	}

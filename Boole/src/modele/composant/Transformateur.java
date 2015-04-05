@@ -4,31 +4,32 @@ import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
 import exception.EndException;
+import modele.Port;
 import modele.port.Entree;
 import modele.port.Sortie;
 
 public abstract class Transformateur extends Generateur implements _Recepteur {
 
-	protected LinkedHashMap<Entree, Boolean> InList;
+	protected LinkedHashMap<Port, Boolean> InList;
 
-	public LinkedHashMap<Entree, Boolean> getInList() {
+	public LinkedHashMap<Port, Boolean> getInList() {
 		return InList;
 	}
 
-	public Transformateur() {
-		super();
-		this.InList = new LinkedHashMap<Entree, Boolean>();
+	public Transformateur(String nom) {
+		super(nom);
+		this.InList = new LinkedHashMap<Port, Boolean>();
 	}
 
 	@Override
 	public void traitement() throws EndException {
 		boolean result = this.calcul();
-		for (Sortie s : this.getOutList())
-			s.setEtat(result);
+		for (Port sortie : this.getOutList())
+			((Sortie)sortie).setEtat(result);
 	}
 
 	public void tryTraitement() throws EndException {
-		for (Entry<Entree, Boolean> entry : this.InList.entrySet()) {
+		for (Entry<Port, Boolean> entry : this.InList.entrySet()) {
 			if (entry.getValue().booleanValue() == false) {
 				return;
 			}
@@ -37,7 +38,7 @@ public abstract class Transformateur extends Generateur implements _Recepteur {
 	}
 
 	public void modified(Entree e) {
-		for (Entry<Entree, Boolean> entry : this.InList.entrySet()) {
+		for (Entry<Port, Boolean> entry : this.InList.entrySet()) {
 			if (entry.getKey().equals(e)) {
 				entry.setValue(new Boolean(true));
 				return;

@@ -5,46 +5,32 @@ import java.util.LinkedHashSet;
 import java.util.Map.Entry;
 
 import exception.EndException;
+import exception.StartException;
 import exception.StateException;
 import modele.Composant;
+import modele.Port;
+import modele.port.Entree;
 import modele.port.Hermaphrodite;
 import modele._Composant;
+import modele.composant.Recepteur;
 import modele.composant._Generateur;
 import modele.composant._Recepteur;
-import modele.port.Entree;
 import modele.port.Sortie;
-import modele.port._Entree;
 
-public class Composite extends Ouvert implements _Composant {
+public class Composite extends Composant implements _Ouvert {
+
+	private LinkedHashSet<Composant> premiers = new LinkedHashSet<Composant>();
+	private LinkedHashMap<Port, Boolean> inList = new LinkedHashMap<Port, Boolean>();
+	private LinkedHashSet<Port> outList = new LinkedHashSet<Port>();
 
 	/**
 	 * 
-	 * il faut préciser pour chaque composant l'index du port à utiliser pour le lier
-	 * 
-	 * @param premiers LinkedHashMap<Entry<Composant, Integer>, Entry<Composant, Integer>>
-	 * @param derniers LinkedHashMap<Entry<Composant, Integer>, Entry<Composant, Integer>>
+	 * @param nom
 	 */
-	public Composite(
-			LinkedHashMap<Entry<Composant, Integer>, Entry<Composant, Integer>> premiers,
-			LinkedHashMap<Entry<Composant, Integer>, Entry<Composant, Integer>> derniers) {
-		super(new LinkedHashSet<Composant>(), new LinkedHashSet<Composant>());
-
-		for (Entry<Entry<Composant, Integer>, Entry<Composant, Integer>> entry : premiers
-				.entrySet()) {
-			Hermaphrodite herma = new Hermaphrodite(0);
-			connexionHermaphrodite(entry.getKey().getKey(), entry.getValue()
-					.getKey(), entry.getValue().getValue(), entry.getKey()
-					.getValue(), herma);
-			this.inList.put((Entree) (_Entree) herma, new Boolean(false));
-		}
-
-		for (Entry<Entry<Composant, Integer>, Entry<Composant, Integer>> entry : derniers
-				.entrySet()) {
-			Hermaphrodite herma = new Hermaphrodite(0);
-			connexionHermaphrodite(entry.getValue().getKey(), entry.getKey()
-					.getKey(), entry.getKey().getValue(), entry.getValue()
-					.getValue(), herma);
-			this.outList.add(herma);
+	public Composite(String nom, Composant... composants) {
+		super(nom);
+		for (Composant composant : composants) {
+			this.premiers.add(composant);
 		}
 	}
 
@@ -58,15 +44,21 @@ public class Composite extends Ouvert implements _Composant {
 	 * @param indexSortie
 	 * @param indexEntree
 	 */
-	public void connexionHermaphrodite(Composant Emet, Composant Recoit,
-			int indexSortie, int indexEntree, Hermaphrodite herma) {
-		for (Sortie s : ((_Generateur) Emet).getOutList()) {
-			if (s.getNum() == indexSortie) {
-				for (Entry<Entree, Boolean> e : ((_Recepteur) Recoit)
+	public void connexionHermaphrodite(Composant emet, Composant recoit,
+			int indexSortie, int indexEntree) {
+		for (Port sortie : ((_Generateur) emet).getOutList()) {
+			if (sortie.getNum() == indexSortie) {
+				for (Entry<Port, Boolean> entry : ((_Recepteur) recoit)
 						.getInList().entrySet()) {
-					if (e.getKey().getNum() == indexEntree) {
-						s.getRecepteurs().add((Entree) (_Entree) herma);
-						herma.getRecepteurs().add(e.getKey());
+					if (entry.getKey().getNum() == indexEntree) {
+						Hermaphrodite herma = new Hermaphrodite(0);
+						((Sortie) sortie).getRecepteurs().add(herma);
+						herma.getRecepteurs().add(entry.getKey());
+						if (premiers.contains(recoit)) {
+							this.inList.put(herma, new Boolean(false));
+						} else {
+							this.outList.add(herma);
+						}
 					}
 				}
 			}
@@ -75,12 +67,61 @@ public class Composite extends Ouvert implements _Composant {
 
 	@Override
 	public void tryTraitement() throws EndException, StateException {
-		for (Entry<Entree, Boolean> entry : this.inList.entrySet()) {
+		for (Entry<Port, Boolean> entry : this.inList.entrySet()) {
 			if (entry.getValue().booleanValue() == false) {
 				return;
 			}
 		}
 		traitement();
+	}
+
+	@Override
+	public void traitement() {
+		for (Composant c : this.premiers) {
+			try {
+				traitement(c);
+			} catch (StateException e) {
+				System.out.println(e);
+			}
+		}
+	}
+
+	public void traitement(Composant c) throws StateException {
+		try {
+			c.tryTraitement();
+		} catch (EndException ee) {
+			for (Port entree : ee.getSortie().getRecepteurs()) {
+				try {
+					((Entree) entree).setEtat(ee.getSortie().getEtat());
+				} catch (StartException se) {
+					((_Recepteur) se.getEntree().getComposant()).modified(se
+							.getEntree());
+					traitement(se.getEntree().getComposant());
+				}
+			}
+		}
+	}
+
+	public void connexion(Composant Emet, Composant Recoit, int indexSortie,
+			int indexEntree) {
+		for (Port sortie : ((_Generateur) Emet).getOutList()) {
+			if (sortie.getNum() == indexSortie) {
+				for (Entry<Port, Boolean> e : ((_Recepteur) Recoit).getInList()
+						.entrySet()) {
+					if (e.getKey().getNum() == indexEntree) {
+						((Sortie) sortie).getRecepteurs().add(e.getKey());
+					}
+				}
+			}
+		}
+	}
+
+	public LinkedHashMap<Port, Boolean> getInList() {
+		return inList;
+	}
+
+	public LinkedHashSet<Port> getOutList() {
+		return outList;
 	}
 
 }

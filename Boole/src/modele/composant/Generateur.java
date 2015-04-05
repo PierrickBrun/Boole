@@ -4,11 +4,12 @@ import java.util.LinkedHashSet;
 
 import exception.EndException;
 import modele.Composant;
+import modele.Port;
 import modele.port.Sortie;
 
 public abstract class Generateur extends Composant implements _Generateur {
 
-	protected LinkedHashSet<Sortie> OutList;
+	protected LinkedHashSet<Port> OutList;
 
 	public void tryTraitement() throws EndException {
 		traitement();
@@ -17,17 +18,18 @@ public abstract class Generateur extends Composant implements _Generateur {
 	@Override
 	public void traitement() throws EndException {
 		boolean result = this.calcul();
-		for (Sortie s : this.getOutList())
-			s.setEtat(result);
+		for (Port port : this.getOutList())
+			((Sortie)port).setEtat(result);
 	}
 
 	protected abstract boolean calcul();
 
-	public Generateur() {
-		this.OutList = new LinkedHashSet<Sortie>();
+	public Generateur(String nom) {
+		super(nom);
+		this.OutList = new LinkedHashSet<Port>();
 	}
 
-	public LinkedHashSet<Sortie> getOutList() {
+	public LinkedHashSet<Port> getOutList() {
 		return OutList;
 	}
 

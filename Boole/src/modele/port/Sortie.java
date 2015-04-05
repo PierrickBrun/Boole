@@ -9,19 +9,19 @@ import modele.Port;
 
 public class Sortie extends Port {
 
-	protected Set<Entree> recepteurs;
+	protected Set<Port> recepteurs;
 
-	public Set<Entree> getRecepteurs() {
+	public Set<Port> getRecepteurs() {
 		return recepteurs;
 	}
 
-	public void setRecepteurs(Set<Entree> recepteurs) {
+	public void setRecepteurs(Set<Port> recepteurs) {
 		this.recepteurs = recepteurs;
 	}
 
 	public Sortie(int num, Composant c) {
 		super(num, c);
-		this.recepteurs = new LinkedHashSet<Entree>();
+		this.recepteurs = new LinkedHashSet<Port>();
 	}
 
 	public void setEtat(boolean e) throws EndException {

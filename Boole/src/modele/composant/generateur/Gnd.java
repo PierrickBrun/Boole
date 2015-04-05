@@ -10,7 +10,8 @@ public final class Gnd extends Generateur {
 		return false;
 	}
 
-	public Gnd() {
+	public Gnd(String nom) {
+		super(nom);
 		this.OutList.add(new Sortie(0, this));
 	}
 

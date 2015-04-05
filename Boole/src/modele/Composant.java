@@ -12,8 +12,8 @@ public abstract class Composant implements _Composant {
 		this.nom = nom;
 	}
 
-	public Composant() {
-		this.nom = "000";
+	public Composant(String nom) {
+		this.nom = nom;
 	}
 
 }

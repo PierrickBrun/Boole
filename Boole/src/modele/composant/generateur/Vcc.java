@@ -10,7 +10,8 @@ public final class Vcc extends Generateur {
 		return true;
 	}
 
-	public Vcc() {
+	public Vcc(String nom) {
+		super(nom);
 		this.OutList.add(new Sortie(0, this));
 	}
 
