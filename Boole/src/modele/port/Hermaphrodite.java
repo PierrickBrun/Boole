@@ -1,11 +1,10 @@
 package modele.port;
 
-import modele.Composant;
 
 public class Hermaphrodite extends Sortie implements _Entree {
 
-	public Hermaphrodite(int num, Composant c) {
-		super(num, c);
+	public Hermaphrodite(int num) {
+		super(num, null);
 	}
 
 	protected Sortie emetteur;
