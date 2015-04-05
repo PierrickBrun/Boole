@@ -1,7 +1,6 @@
 package modele.composant;
 
 import java.util.LinkedHashSet;
-import java.util.Set;
 
 import exception.EndException;
 import modele.Composant;
@@ -9,7 +8,7 @@ import modele.port.Sortie;
 
 public abstract class Generateur extends Composant implements _Generateur {
 
-	protected Set<Sortie> OutList;
+	protected LinkedHashSet<Sortie> OutList;
 
 	public void tryTraitement() throws EndException {
 		traitement();
@@ -28,8 +27,9 @@ public abstract class Generateur extends Composant implements _Generateur {
 		this.OutList = new LinkedHashSet<Sortie>();
 	}
 
-	public Set<Sortie> getOutList() {
+	public LinkedHashSet<Sortie> getOutList() {
 		return new LinkedHashSet<Sortie>(OutList);
+
 	}
 
 }

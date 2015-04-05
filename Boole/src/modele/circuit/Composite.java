@@ -1,14 +1,19 @@
 package modele.circuit;
 
+import java.util.LinkedHashSet;
+import java.util.Map.Entry;
+
 import exception.EndException;
 import exception.StateException;
 import modele.Composant;
 import modele._Composant;
+import modele.port.Entree;
 
 public class Composite extends Ouvert implements _Composant {
 
-	public Composite(String nom,Composant composant) {
-		super(nom, composant);
+	public Composite(LinkedHashSet<Composant> premiers,
+			LinkedHashSet<Composant> derniers) {
+		super(premiers, derniers);
 	}
 
 	@Override
@@ -28,8 +33,12 @@ public class Composite extends Ouvert implements _Composant {
 
 	@Override
 	public void tryTraitement() throws EndException, StateException {
-		// TODO Auto-generated method stub
-
+		for (Entry<Entree, Boolean> entry : this.inList.entrySet()) {
+			if (entry.getValue().booleanValue() == false) {
+				return;
+			}
+		}
+		traitement();
 	}
 
 }

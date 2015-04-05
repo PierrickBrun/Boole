@@ -1,7 +1,6 @@
 package modele.composant;
 
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import exception.EndException;
@@ -10,9 +9,9 @@ import modele.port.Sortie;
 
 public abstract class Transformateur extends Generateur implements _Recepteur {
 
-	protected Map<Entree, Boolean> InList;
+	protected LinkedHashMap<Entree, Boolean> InList;
 
-	public Map<Entree, Boolean> getInList() {
+	public LinkedHashMap<Entree, Boolean> getInList() {
 		return InList;
 	}
 

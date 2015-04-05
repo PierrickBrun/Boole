@@ -1,7 +1,6 @@
 package modele.composant;
 
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import exception.EndException;
@@ -11,7 +10,7 @@ import modele.port.Entree;
 
 public abstract class Recepteur extends Composant implements _Recepteur {
 
-	protected Map<Entree, Boolean> InList;
+	protected LinkedHashMap<Entree, Boolean> InList;
 
 	public Recepteur() {
 		this.InList = new LinkedHashMap<Entree, Boolean>();
@@ -35,7 +34,7 @@ public abstract class Recepteur extends Composant implements _Recepteur {
 		}
 	}
 
-	public Map<Entree, Boolean> getInList() {
+	public LinkedHashMap<Entree, Boolean> getInList() {
 		return new LinkedHashMap<Entree,Boolean>(this.InList);
 	}
 

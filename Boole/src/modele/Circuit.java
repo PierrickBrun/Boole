@@ -11,6 +11,8 @@ import modele.port.Sortie;
 
 public abstract class Circuit implements _Circuit {
 
+	protected LinkedHashSet<Composant> premiers = new LinkedHashSet<Composant>();
+
 	// un des deux � supprimer
 	protected Set<Composant> premiers = new HashSet<Composant>();
     protected String nom;
@@ -23,6 +25,8 @@ public abstract class Circuit implements _Circuit {
 		this.nom = nom;
 	}
 	
+	protected String nom = "000";
+	protected String nom = "000";
 	public Circuit(String nom){
 		this.nom = nom;
 	}
